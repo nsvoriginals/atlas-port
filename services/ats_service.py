@@ -1,11 +1,14 @@
+# THIS SERVICE HANDLES ATS (APPLICANT TRACKING SYSTEM) ANALYSIS USING GROQ API
 from groq import Groq
 import os
 from typing import Dict, Any
 import json
 from fastapi import HTTPException
 
+# INITIALIZE GROQ CLIENT
 groq_client = Groq(api_key=os.getenv("GROQ_API"))
 
+# MAIN FUNCTION TO ANALYZE RESUME AGAINST JOB DESCRIPTION
 async def ats_metrics(resume_data: str, job_description: str) -> Dict[str, Any]:
     """
     Analyze resume against job description using Groq API.

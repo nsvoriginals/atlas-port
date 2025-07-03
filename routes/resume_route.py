@@ -4,18 +4,10 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from models.user_model import Resume, User
 from schemas.resume_schema import ResumeCreate, ResumeResponse
-from config.db import SessionLocal
+from config.db import SessionLocal, get_db
 from typing import Dict, Any, Optional
 import re
 from sqlalchemy.exc import IntegrityError
-
-# Create dependency for database session
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 resume_router = APIRouter()
 

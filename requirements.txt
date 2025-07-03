@@ -16,3 +16,4 @@ pydantic_settings
 reportlab
 jinja2
 weasyprint
+psycopg2

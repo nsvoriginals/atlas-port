@@ -1,3 +1,4 @@
+# THIS SERVICE HANDLES INTERVIEW QUESTION GENERATION USING GROQ API
 from groq import Groq
 import os
 from fastapi import HTTPException
@@ -5,9 +6,10 @@ from typing import Dict, Any, List
 import json
 import re
 
-# Initialize the Groq client
+# INITIALIZE THE GROQ CLIENT
 groq_client = Groq(api_key=os.getenv("GROQ_API"))
 
+# MAIN FUNCTION TO GENERATE INTERVIEW QUESTIONS
 async def generate_interview_questions(
     resume_data: Dict[str, Any],
     job_role: str,
@@ -116,6 +118,8 @@ IMPORTANT:
                 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error generating interview questions: {str(e)}")
+
+# FUNCTION TO FIX COMMON JSON SYNTAX ISSUES
 def fix_json_syntax(json_str: str) -> str:
     """
     Attempt to fix common JSON syntax issues in model output.

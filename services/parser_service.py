@@ -1,3 +1,4 @@
+# THIS SERVICE HANDLES RESUME PARSING AND EXTRACTION OF INFORMATION
 from fastapi import HTTPException
 import pdfplumber
 import docx
@@ -7,11 +8,13 @@ import datetime
 from typing import Dict, Any, List, Optional, Union
 from collections import defaultdict
 
+# LOAD SPACY MODEL FOR NLP
 try:
     nlp = spacy.load("en_core_web_sm")
 except OSError:
     raise RuntimeError("spaCy model 'en_core_web_sm' not found. Run 'python -m spacy download en_core_web_sm'.")
 
+# MAIN FUNCTION TO EXTRACT STRUCTURED RESUME DATA
 
 def extract_resume_data(text: str) -> Dict[str, Any]:
     """Extract structured resume data according to JSON Resume schema."""
@@ -62,7 +65,7 @@ def extract_resume_data(text: str) -> Dict[str, Any]:
     
     return resume_data
 
-
+# FUNCTION TO EXTRACT TEXT FROM PDF FILE
 
 def extract_text_from_pdf(pdf_file) -> str:
     """Extract text from an uploaded PDF file."""
@@ -77,6 +80,7 @@ def extract_text_from_pdf(pdf_file) -> str:
         raise HTTPException(status_code=500, detail=f"Error extracting PDF text: {str(e)}")
     return text.strip()
 
+# FUNCTION TO EXTRACT TEXT FROM DOCX FILE
 
 def extract_text_from_docx(docx_file) -> str:
     """Extract text from an uploaded DOCX file."""
@@ -86,8 +90,8 @@ def extract_text_from_docx(docx_file) -> str:
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error extracting DOCX text: {str(e)}")
 
+# HELPER FUNCTION TO EXTRACT CONTACT INFO
 
-# Helper functions for extracting specific resume components
 def extract_contact_info(text: str) -> Dict[str, str]:
     """Extract contact information including email, phone, and url."""
     email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
@@ -131,6 +135,7 @@ def extract_contact_info(text: str) -> Dict[str, str]:
     
     return result
 
+# FUNCTION TO EXTRACT NAME FROM TEXT
 
 def extract_name(text: str) -> str:
     """Extract the name using Named Entity Recognition (NER) with spaCy."""
