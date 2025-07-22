@@ -13,3 +13,7 @@ regex
 python-multipart
 groq
 pydantic_settings
+reportlab
+jinja2
+weasyprint
+psycopg2
